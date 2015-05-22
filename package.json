@@ -1,0 +1,34 @@
+{
+  "name": "node-aws-lambda",
+  "version": "0.0.1",
+  "description": "A module help you automate AWS lambda function deployment.",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/all.js"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThoughtWorksStudios/node-aws-lambda"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "deploy"
+  ],
+  "author": "Pengchao Wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThoughtWorksStudios/node-aws-lambda/issues"
+  },
+
+  "dependencies": {
+    "aws-sdk": "2.x.x",
+    "async": "^1.0.0"
+  },
+
+  "devDependencies": {
+    "mocha": "^2.2.1",
+    "chai": "^2.1.1",
+    "node-uuid": "^1.4.3"
+  }
+}
