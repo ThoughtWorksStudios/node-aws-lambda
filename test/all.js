@@ -1,6 +1,6 @@
 var fs = require('fs');
 var extend = require('util')._extend;
-var awsLambda = require('../node-aws-lambda');
+var awsLambda = require('../index');
 var expect = require('chai').expect;
 var FakeLambdaService = require('./fake-lambda-service');
 var logger = console.log;
