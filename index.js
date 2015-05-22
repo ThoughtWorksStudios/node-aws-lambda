@@ -9,10 +9,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
   }
 
   if(!lambda) {
-    lambda = new AWS.Lambda();
+    lambda = new AWS.Lambda({region: config.region});
   }
-
-  AWS.config.region = config.region;
 
   var params = {
     FunctionName: config.functionName,
