@@ -8,12 +8,10 @@ Inspired by https://medium.com/@AdamRNeary/a-gulp-workflow-for-amazon-lambda-61c
 gulpfile.js
 ```node
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var zip = require('gulp-zip');
 var del = require('del');
 var install = require('gulp-install');
 var runSequence = require('run-sequence');
-var fs = require('fs');
 var awsLambda = require("node-aws-lambda");
 
 gulp.task('clean', function(cb) {
