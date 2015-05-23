@@ -52,6 +52,21 @@ gulp.task('deploy', function(callback) {
 });
 
 ````
+lambda-config.js
+````
+module.exports = {
+  region: 'us-east-1',
+  handler: 'index.handler',
+  role: <role arn>,
+  functionName: <function name>,
+  timeout: 10,
+  eventSource: {
+    EventSourceArn: <event source such as kinesis ARN>,
+    BatchSize: 200,
+    StartingPosition: "TRIM_HORIZON"
+  }
+}
+````
 
 # License
 
