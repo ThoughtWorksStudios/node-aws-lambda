@@ -6,7 +6,7 @@ Inspired by https://medium.com/@AdamRNeary/a-gulp-workflow-for-amazon-lambda-61c
 # Gulp example:
 
 gulpfile.js
-````
+```node
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var zip = require('gulp-zip');
@@ -50,10 +50,10 @@ gulp.task('deploy', function(callback) {
     callback
   );
 });
-
-````
+```
 lambda-config.js
-````
+
+```node
 module.exports = {
   region: 'us-east-1',
   handler: 'index.handler',
