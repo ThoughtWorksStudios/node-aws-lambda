@@ -1,8 +1,59 @@
 # node-aws-lambda
 A module help you automate AWS lambda function deployment. All lambda configuration is managed in the codebase, so you can version control everything instead of click click click in AWS console. 
 
+Inspired by https://medium.com/@AdamRNeary/a-gulp-workflow-for-amazon-lambda-61c2afd723b6
 
-#License
+# Gulp example:
+
+gulpfile.js
+````
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var zip = require('gulp-zip');
+var del = require('del');
+var install = require('gulp-install');
+var runSequence = require('run-sequence');
+var fs = require('fs');
+var awsLambda = require("node-aws-lambda");
+
+gulp.task('clean', function(cb) {
+  del(['./dist', './dist.zip'], cb);
+});
+
+gulp.task('js', function() {
+  return gulp.src('index.js')
+    .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('node-mods', function() {
+  return gulp.src('./package.json')
+    .pipe(gulp.dest('dist/'))
+    .pipe(install({production: true}));
+});
+
+gulp.task('zip', function() {
+  return gulp.src(['dist/**/*', '!dist/package.json'])
+    .pipe(zip('dist.zip'))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('upload', function(callback) {
+  awsLambda.deploy('./dist.zip', require("./lambda-config.js"), callback);
+});
+
+gulp.task('deploy', function(callback) {
+  return runSequence(
+    ['clean'],
+    ['js', 'node-mods'],
+    ['zip'],
+    ['upload'],
+    callback
+  );
+});
+
+````
+
+# License
 
 (The MIT License)
 
