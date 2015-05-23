@@ -1,5 +1,6 @@
 var fs = require('fs');
-var extend = require('util')._extend;
+var util = require('util');
+var extend = util._extend;
 var awsLambda = require('../index');
 var expect = require('chai').expect;
 var FakeLambdaService = require('./fake-lambda-service');
@@ -100,6 +101,8 @@ describe('node aws lambda module', function() {
           Timeout: 20,
           Runtime: "nodejs"
         });
+
+        expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV2).toString());
         service.listEventSourceMappings({FunctionName: 'helloworld', EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0"}, callback);
       },
 
@@ -110,4 +113,24 @@ describe('node aws lambda module', function() {
       }
     ], done);
   });
+
+
+  it("should not deploy function unless package can be found", function(done) {
+    deploy('not-exist', sampleConfig, function(err) {
+      expect(err).to.equal('Error reading specified package "not-exist"');
+      done();
+    });
+  });
+
+  it("should not update function unless package can be found", function(done) {
+    deploy(packageV1, sampleConfig, function(err) {
+      if(err) { return done(error); }
+      deploy("not-exist", sampleConfig, function(err) {
+        expect(err).to.equal('Error reading specified package "not-exist"');
+        done();
+      });
+    });
+  });
+
+
 });

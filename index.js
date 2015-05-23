@@ -62,6 +62,10 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
 
   var updateFunction = function(callback) {
     fs.readFile(codePackage, function(err, data) {
+      if(err) {
+        return callback('Error reading specified package "'+ codePackage + '"');
+      }
+
       lambda.updateFunctionCode({FunctionName: params.FunctionName, ZipFile: data}, function(err, data) {
         if (err) {
           var warning = 'Package upload failed. '
@@ -85,6 +89,10 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
 
   var createFunction = function(callback) {
     fs.readFile(codePackage, function(err, data) {
+      if(err) {
+        return callback('Error reading specified package "'+ codePackage + '"');
+      }
+
       params['Code'] = { ZipFile: data };
       params['Runtime'] = "nodejs";
       lambda.createFunction(params, function(err, data) {
