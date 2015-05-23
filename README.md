@@ -1,5 +1,8 @@
-# node-aws-lambda
-A module help you automate AWS lambda function deployment. All lambda configuration is managed in the codebase, so you can version control everything instead of click click click in AWS console. 
+# node-aws-lambda [![Build Status](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master/build_image)](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master)
+[Built with :yellow_heart: and :coffee: in San Francisco](http://getmingle.io)
+
+A module help you automate AWS lambda function deployment. 
+All lambda configuration is managed in the codebase, includes event source mappings. So you can version control everything instead of click click click in AWS console. 
 
 Inspired by https://medium.com/@AdamRNeary/a-gulp-workflow-for-amazon-lambda-61c2afd723b6
 
