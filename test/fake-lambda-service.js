@@ -87,6 +87,14 @@ module.exports = function() {
       });
     },
 
+    eventSourceMappingCount: function(funName) {
+      var fun = getFun(funName);
+
+      return Object.keys(fun.eventSources).reduce(function(memo, current) {
+        return memo + fun.eventSources[current].length;
+      }, 0);
+    },
+
     // http://docs.aws.amazon.com/lambda/latest/dg/API_ListEventSourceMappings.html
     listEventSourceMappings: function(params, callback) {
       validateParams(params,

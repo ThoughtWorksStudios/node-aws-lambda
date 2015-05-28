@@ -20,6 +20,11 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
   };
 
   var updateEventSource = function(callback) {
+    if(!config.eventSource) {
+      callback();
+      return;
+    }
+
     var params = extend({
       FunctionName: config.functionName
     }, config.eventSource);

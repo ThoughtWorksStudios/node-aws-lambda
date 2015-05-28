@@ -133,4 +133,14 @@ describe('node aws lambda module', function() {
   });
 
 
+  it("should skip event source setup if no configuration is given", function(done) {
+    var newConfig = extend({}, sampleConfig);
+    delete newConfig.eventSource;
+    deploy(packageV1, newConfig, function(err) {
+      expect(err).to.be.a("undefined");
+      expect(service.eventSourceMappingCount('helloworld')).to.equal(0);
+      done();
+    });
+  });
+
 });
