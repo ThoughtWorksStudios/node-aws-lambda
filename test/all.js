@@ -7,13 +7,11 @@ var FakeLambdaService = require('./fake-lambda-service');
 var logger = console.log;
 var async = require('async');
 
-
 function failOnError(callback) {
   return function(err) {
     if(err) { callback(err); }
   };
 }
-
 
 describe('node aws lambda module', function() {
   var service;
@@ -40,7 +38,7 @@ describe('node aws lambda module', function() {
     service = new FakeLambdaService();
   });
 
-  it('should create the function with code, configuration and event source mapping on fresh deploy', function(done){
+  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done){
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -71,7 +69,7 @@ describe('node aws lambda module', function() {
     ], done);
   });
 
-  it("should update the code and configuration on nex deploys", function(done) {
+  it("should update the code and configuration on next deploys", function(done) {
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -114,7 +112,6 @@ describe('node aws lambda module', function() {
     ], done);
   });
 
-
   it("should not deploy function unless package can be found", function(done) {
     deploy('not-exist', sampleConfig, function(err) {
       expect(err).to.equal('Error reading specified package "not-exist"');
@@ -131,6 +128,4 @@ describe('node aws lambda module', function() {
       });
     });
   });
-
-
 });
