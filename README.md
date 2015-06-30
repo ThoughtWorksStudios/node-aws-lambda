@@ -1,5 +1,5 @@
 # node-aws-lambda [![Build Status](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master/build_image)](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master)
-[Built with :yellow_heart: and :coffee: in San Francisco](http://getmingle.io)
+[Built with :yellow_heart: and :coffee: in San Francisco](http://www.thoughtworks.com/mingle/team/)
 
 A module help you automate AWS lambda function deployment. 
 All lambda configuration is managed in the codebase, includes event source mappings. So you can version control everything and automate the deployment instead of click click click in AWS console. 
