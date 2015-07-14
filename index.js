@@ -16,7 +16,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     FunctionName: config.functionName,
     Handler: config.handler,
     Role: config.role,
-    Timeout: config.timeout
+    Timeout: config.timeout,
+    MemorySize: config.memorySize
   };
 
   var updateEventSource = function(callback) {

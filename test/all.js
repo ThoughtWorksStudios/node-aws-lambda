@@ -7,13 +7,11 @@ var FakeLambdaService = require('./fake-lambda-service');
 var logger = console.log;
 var async = require('async');
 
-
 function failOnError(callback) {
   return function(err) {
     if(err) { callback(err); }
   };
 }
-
 
 describe('node aws lambda module', function() {
   var service;
@@ -25,6 +23,7 @@ describe('node aws lambda module', function() {
     role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
     functionName: 'helloworld',
     timeout: 10,
+    memorySize: 128,
     eventSource: {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
       BatchSize: 200,
@@ -40,7 +39,7 @@ describe('node aws lambda module', function() {
     service = new FakeLambdaService();
   });
 
-  it('should create the function with code, configuration and event source mapping on fresh deploy', function(done){
+  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done){
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -56,6 +55,7 @@ describe('node aws lambda module', function() {
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 10,
+          MemorySize: 128,
           Runtime: "nodejs"
         });
         expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV1).toString());
@@ -71,7 +71,7 @@ describe('node aws lambda module', function() {
     ], done);
   });
 
-  it("should update the code and configuration on nex deploys", function(done) {
+  it("should update the code and configuration on next deploys", function(done) {
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -80,6 +80,7 @@ describe('node aws lambda module', function() {
       function(callback) {
         var newConfig = extend({}, sampleConfig);
         newConfig.timeout = 20;
+        newConfig.memorySize = 128;
         newConfig.eventSource = {
           EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
           BatchSize: 50,
@@ -99,6 +100,7 @@ describe('node aws lambda module', function() {
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
+          MemorySize: 128,
           Runtime: "nodejs"
         });
 
@@ -113,7 +115,6 @@ describe('node aws lambda module', function() {
       }
     ], done);
   });
-
 
   it("should not deploy function unless package can be found", function(done) {
     deploy('not-exist', sampleConfig, function(err) {
@@ -132,7 +133,6 @@ describe('node aws lambda module', function() {
     });
   });
 
-
   it("should skip event source setup if no configuration is given", function(done) {
     var newConfig = extend({}, sampleConfig);
     delete newConfig.eventSource;
@@ -142,5 +142,4 @@ describe('node aws lambda module', function() {
       done();
     });
   });
-
 });
