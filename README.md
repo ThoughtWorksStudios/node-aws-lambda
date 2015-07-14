@@ -1,8 +1,8 @@
 # node-aws-lambda [![Build Status](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master/build_image)](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master)
 [Built with :yellow_heart: and :coffee: in San Francisco](http://www.thoughtworks.com/mingle/team/)
 
-A module help you automate AWS lambda function deployment. 
-All lambda configuration is managed in the codebase, includes event source mappings. So you can version control everything and automate the deployment instead of click click click in AWS console. 
+A module help you automate AWS lambda function deployment.
+All lambda configuration is managed in the codebase, includes event source mappings. So you can version control everything and automate the deployment instead of click click click in AWS console.
 
 Inspired by https://medium.com/@AdamRNeary/a-gulp-workflow-for-amazon-lambda-61c2afd723b6
 
@@ -61,6 +61,7 @@ module.exports = {
   role: <role arn>,
   functionName: <function name>,
   timeout: 10,
+  memorySize: 128,
   eventSource: {
     EventSourceArn: <event source such as kinesis ARN>,
     BatchSize: 200,
@@ -80,4 +81,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
