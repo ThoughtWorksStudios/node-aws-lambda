@@ -23,6 +23,7 @@ describe('node aws lambda module', function() {
     role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
     functionName: 'helloworld',
     timeout: 10,
+    memorySize: 128,
     eventSource: {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
       BatchSize: 200,
@@ -54,6 +55,7 @@ describe('node aws lambda module', function() {
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 10,
+          MemorySize: 128,
           Runtime: "nodejs"
         });
         expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV1).toString());
@@ -78,6 +80,7 @@ describe('node aws lambda module', function() {
       function(callback) {
         var newConfig = extend({}, sampleConfig);
         newConfig.timeout = 20;
+        newConfig.memorySize = 128;
         newConfig.eventSource = {
           EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
           BatchSize: 50,
@@ -97,6 +100,7 @@ describe('node aws lambda module', function() {
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
+          MemorySize: 128,
           Runtime: "nodejs"
         });
 
