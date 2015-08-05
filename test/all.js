@@ -19,6 +19,8 @@ describe('node aws lambda module', function() {
   var packageV2 = 'test/helloworld-v2.zip';
   var sampleConfig = {
     region: 'us-west-1',
+    accessKeyId: 'key',
+    secretAccessKey: 'secret',
     handler: 'helloworld.handler',
     role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
     functionName: 'helloworld',

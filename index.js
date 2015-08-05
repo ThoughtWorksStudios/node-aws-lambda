@@ -9,7 +9,11 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
   }
 
   if(!lambda) {
-    lambda = new AWS.Lambda({region: config.region});
+    lambda = new AWS.Lambda({
+      region: config.region,
+      accessKeyId: config.accessKeyId,
+      secretAccessKey: config.secretAccessKey
+    });
   }
 
   var params = {

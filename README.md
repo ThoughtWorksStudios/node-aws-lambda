@@ -56,6 +56,8 @@ lambda-config.js
 
 ```node
 module.exports = {
+  accessKeyId: <access key id>,
+  secretAccessKey: <secret access key>,
   region: 'us-east-1',
   handler: 'index.handler',
   role: <role arn>,
