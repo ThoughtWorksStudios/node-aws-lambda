@@ -1,10 +1,10 @@
 0.1.3
 =====
-* Add optional accessKeyId and secretAccessKey @ikait
+* Add optional accessKeyId and secretAccessKey (by @ikait)
 
 0.1.2
 =====
-* Add support for memorySize option (Thanks @ikait)
+* Add support for memorySize option (by @ikait)
 
 0.1.1
 =====
