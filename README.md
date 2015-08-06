@@ -1,4 +1,4 @@
-# node-aws-lambda [![Build Status](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master/build_image)](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master) [![npm version](https://badge.fury.io/js/node-aws-lambda.svg)](http://badge.fury.io/js/node-aws-lambda)
+# node-aws-lambda [![npm version](https://badge.fury.io/js/node-aws-lambda.svg)](http://badge.fury.io/js/node-aws-lambda) [![Build Status](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master/build_image)](https://snap-ci.com/ThoughtWorksStudios/node-aws-lambda/branch/master)
 [Built with :yellow_heart: and :coffee: in San Francisco](http://www.thoughtworks.com/mingle/team/)
 
 A module helps you automate AWS lambda function deployment.
