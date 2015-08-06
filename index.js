@@ -11,8 +11,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
   if(!lambda) {
     lambda = new AWS.Lambda({
       region: config.region,
-      accessKeyId: config.accessKeyId,
-      secretAccessKey: config.secretAccessKey
+      accessKeyId: "accessKeyId" in config ? config.accessKeyId : "",
+      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey : ""
     });
   }
 
