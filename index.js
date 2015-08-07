@@ -9,6 +9,11 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
   }
 
   if(!lambda) {
+    if("profile" in config) {
+      var credentials = new AWS.SharedIniFileCredentials({profile: config.profile});
+      AWS.config.credentials = credentials;
+    }
+
     lambda = new AWS.Lambda({
       region: config.region,
       accessKeyId: "accessKeyId" in config ? config.accessKeyId : "",
