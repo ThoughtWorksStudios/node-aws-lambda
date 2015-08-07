@@ -58,7 +58,7 @@ lambda-config.js
 module.exports = {
   accessKeyId: <access key id>,  // optional
   secretAccessKey: <secret access key>,  // optional
-  profile: <shared credentials profile name>, // optional - accessKeyId & secretAccessKey will override if present
+  profile: <shared credentials profile name>, // optional for loading AWS credientail from custom profile
   region: 'us-east-1',
   handler: 'index.handler',
   role: <role arn>,
