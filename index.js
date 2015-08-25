@@ -13,11 +13,11 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
       var credentials = new AWS.SharedIniFileCredentials({profile: config.profile});
       AWS.config.credentials = credentials;
     }
-    
-    if (process.env.HTTPS_PROXY) {
-      if (!AWS.config.httpOptions)
-        AWS.config.httpOptions = {};
 
+    if (process.env.HTTPS_PROXY) {
+      if (!AWS.config.httpOptions) {
+        AWS.config.httpOptions = {};
+      }
       var HttpsProxyAgent = require('https-proxy-agent');
       AWS.config.httpOptions.agent = new HttpsProxyAgent(process.env.HTTPS_PROXY);
     }
