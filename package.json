@@ -1,6 +1,6 @@
 {
   "name": "node-aws-lambda",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A module help you automate AWS lambda function deployment.",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/all.js"

@@ -1,3 +1,7 @@
+0.1.5
+=====
+* HTTPS proxy support (by @dvonlehman)
+
 0.1.4
 =====
 * Add "profile" option to enable load AWS credentials from custom profile (by @bryannaegele)

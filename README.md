@@ -73,6 +73,13 @@ module.exports = {
 }
 ````
 
+# Proxy setup
+Deployment via https proxy is supported by setting environment variable "HTTPS_PROXY". For example:
+
+```terminal
+HTTPS_PROXY="https://myproxy:8080" gulp deploy
+```
+
 # License
 
 (The MIT License)
