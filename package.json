@@ -5,7 +5,6 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/all.js"
   },
-
   "repository": {
     "type": "git",
     "url": "https://github.com/ThoughtWorksStudios/node-aws-lambda"
@@ -20,12 +19,11 @@
   "bugs": {
     "url": "https://github.com/ThoughtWorksStudios/node-aws-lambda/issues"
   },
-
   "dependencies": {
+    "async": "^1.0.0",
     "aws-sdk": "2.x.x",
-    "async": "^1.0.0"
+    "https-proxy-agent": "^1.0.0"
   },
-
   "devDependencies": {
     "mocha": "^2.2.1",
     "chai": "^2.1.1",
