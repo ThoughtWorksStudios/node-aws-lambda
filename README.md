@@ -18,7 +18,7 @@ var runSequence = require('run-sequence');
 var awsLambda = require("node-aws-lambda");
 
 gulp.task('clean', function(cb) {
-  del(['./dist', './dist.zip'], cb);
+  return del(['./dist', './dist.zip']);
 });
 
 gulp.task('js', function() {
