@@ -17,7 +17,7 @@ var install = require('gulp-install');
 var runSequence = require('run-sequence');
 var awsLambda = require("node-aws-lambda");
 
-gulp.task('clean', function(cb) {
+gulp.task('clean', function() {
   return del(['./dist', './dist.zip']);
 });
 
