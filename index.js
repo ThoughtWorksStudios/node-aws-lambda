@@ -31,6 +31,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
 
   var params = {
     FunctionName: config.functionName,
+    Description: config.description,
     Handler: config.handler,
     Role: config.role,
     Timeout: config.timeout,

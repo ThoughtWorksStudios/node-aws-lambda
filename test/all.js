@@ -24,6 +24,7 @@ describe('node aws lambda module', function() {
     handler: 'helloworld.handler',
     role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
     functionName: 'helloworld',
+    description: 'helloworld description',
     timeout: 10,
     memorySize: 128,
     eventSource: {
@@ -54,6 +55,7 @@ describe('node aws lambda module', function() {
       function(data, callback) {
         expect(data.Configuration).to.deep.equal({
           FunctionName: 'helloworld',
+          Description: 'helloworld description',
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 10,
@@ -99,6 +101,7 @@ describe('node aws lambda module', function() {
       function(data, callback) {
         expect(data.Configuration).to.deep.equal({
           FunctionName: 'helloworld',
+          Description: 'helloworld description',
           Handler: 'helloworld.handler',
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
