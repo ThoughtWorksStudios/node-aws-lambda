@@ -65,6 +65,7 @@ module.exports = {
   functionName: <function name>,
   timeout: 10,
   memorySize: 128,
+  runtime: 'nodejs', // default: 'nodejs'
   eventSource: {
     EventSourceArn: <event source such as kinesis ARN>,
     BatchSize: 200,
