@@ -38,15 +38,10 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     MemorySize: config.memorySize
   };
 
-  var updateEventSource = function(callback) {
-    if(!config.eventSource) {
-      callback();
-      return;
-    }
-
+  var updateEventSource = function(eventSource, callback) {
     var params = extend({
       FunctionName: config.functionName
-    }, config.eventSource);
+    }, eventSource);
 
     lambda.listEventSourceMappings({
       FunctionName: params.FunctionName,
@@ -84,6 +79,25 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     });
   };
 
+  var updateEventSources = function(callback) {
+    var eventSources;
+
+    if(!config.eventSource) {
+      callback();
+      return;
+    }
+
+    eventSources = Array.isArray(config.eventSource) ? config.eventSource : [ config.eventSource ];
+
+    async.eachSeries(
+      eventSources,
+      updateEventSource,
+      function(err) {
+        callback(err);
+      }
+    );
+  };
+
   var updateFunction = function(callback) {
     fs.readFile(codePackage, function(err, data) {
       if(err) {
@@ -103,7 +117,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
               logger(warning);
               callback(err);
             } else {
-              updateEventSource(callback);
+              updateEventSources(callback);
             }
           });
         }
@@ -126,7 +140,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
           logger(warning);
           callback(err)
         } else {
-          updateEventSource(callback);
+          updateEventSources(callback);
         }
       });
     });
