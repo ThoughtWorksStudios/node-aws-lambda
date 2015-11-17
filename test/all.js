@@ -55,7 +55,7 @@ describe('node aws lambda module', function() {
 
   var deploy = function(packagePath, config, callback) {
     awsLambda.deploy(packagePath, config, callback, logger, service);
-  }
+  };
 
   beforeEach(function() {
     service = new FakeLambdaService();
@@ -188,6 +188,21 @@ describe('node aws lambda module', function() {
     deploy(packageV1, newConfig, function(err) {
       expect(err).to.be.a("undefined");
       expect(service.eventSourceMappingCount('helloworld')).to.equal(0);
+      done();
+    });
+  });
+
+  it("should be able to set multiple event sources", function(done) {
+    var newEventSource = {
+        EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x1",
+        BatchSize: 500,
+        StartingPosition: "LATEST"
+      },
+      newConfig = extend({}, sampleConfig);
+
+    newConfig.eventSource = [ newConfig.eventSource, newEventSource ];
+    deploy(packageV1, newConfig, function(err) {
+      expect(service.eventSourceMappingCount('helloworld')).to.equal(newConfig.eventSource.length);
       done();
     });
   });
