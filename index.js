@@ -118,7 +118,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
       }
 
       params['Code'] = { ZipFile: data };
-      params['Runtime'] = "nodejs";
+      params['Runtime'] = "runtime" in config ? config.runtime : "nodejs";
       lambda.createFunction(params, function(err, data) {
         if (err) {
           var warning = 'Create function failed. '

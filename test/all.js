@@ -34,6 +34,25 @@ describe('node aws lambda module', function() {
     }
   };
 
+  var sampleConfigPython = {
+    region: 'us-west-1',
+    accessKeyId: 'key',
+    secretAccessKey: 'secret',
+    handler: 'helloworld.handler',
+    role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
+    functionName: 'helloworld',
+    description: 'helloworld description',
+    timeout: 10,
+    memorySize: 128,
+    runtime: "python2.7",
+    eventSource: {
+      EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
+      BatchSize: 200,
+      StartingPosition: "TRIM_HORIZON"
+    }
+  };
+
+
   var deploy = function(packagePath, config, callback) {
     awsLambda.deploy(packagePath, config, callback, logger, service);
   }
@@ -117,6 +136,31 @@ describe('node aws lambda module', function() {
         expect(data.EventSourceMappings.length).to.equal(1);
         expect(data.EventSourceMappings[0].BatchSize).to.equal(50);
         callback();
+      }
+    ], done);
+  });
+
+  it('should create the function with runtime configuration', function(done){
+    async.waterfall([
+      function(callback) {
+        deploy(packageV1, sampleConfigPython, callback);
+      },
+
+      function(callback) {
+        service.getFunction({FunctionName: 'helloworld'}, callback);
+      },
+
+      function(data, callback) {
+        expect(data.Configuration).to.deep.equal({
+          FunctionName: 'helloworld',
+          Description: 'helloworld description',
+          Handler: 'helloworld.handler',
+          Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
+          Timeout: 10,
+          Runtime: "python2.7",
+          MemorySize: 128,
+        });
+        callback()
       }
     ], done);
   });
