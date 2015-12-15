@@ -108,7 +108,6 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
         if (err) {
           var warning = 'Package upload failed. '
           warning += 'Check your iam:PassRole permissions.'
-          gutil.log(warning);
           callback(err)
         } else {
           lambda.updateFunctionConfiguration(params, function(err, data) {
