@@ -1,3 +1,12 @@
+0.1.7
+=====
+* Support python and other runtime (by @kikusu)
+* Support specifying multiple event sources (by @driadi)
+
+0.1.6
+=====
+* Support specifying descriptions (by @dlhdesign)
+
 0.1.5
 =====
 * HTTPS proxy support (by @dvonlehman)
