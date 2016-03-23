@@ -50,7 +50,7 @@ module.exports = function() {
     createFunction: function(params, callback) {
       validateParams(params,
                      ['FunctionName', 'Code', 'Handler', 'Role', 'Runtime'],
-                     ['Description', 'MemorySize', 'Timeout'], 'createFunction')
+                     ['Description', 'MemorySize', 'Timeout', 'VpcConfig'], 'createFunction')
 
       var name = params.FunctionName;
       var code = params.Code;
@@ -153,7 +153,7 @@ module.exports = function() {
     updateFunctionConfiguration: function(params, callback) {
       validateParams(params,
                      ['FunctionName'],
-                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout'], 'updateFunctionConfiguration')
+                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout', 'VpcConfig'], 'updateFunctionConfiguration')
 
       var fun = getFun(params.FunctionName);
       if(!fun) {

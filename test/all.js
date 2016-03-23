@@ -27,6 +27,10 @@ describe('node aws lambda module', function() {
     description: 'helloworld description',
     timeout: 10,
     memorySize: 128,
+    vpc: {
+      SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
+      SubnetIds: ['subnet-xxxxxxxx']
+    },
     eventSource: {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
       BatchSize: 200,
@@ -79,7 +83,11 @@ describe('node aws lambda module', function() {
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 10,
           MemorySize: 128,
-          Runtime: "nodejs"
+          Runtime: "nodejs",
+          VpcConfig: {
+            SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
+            SubnetIds: ['subnet-xxxxxxxx']
+          }
         });
         expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV1).toString());
         service.listEventSourceMappings({FunctionName: 'helloworld', EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0"}, callback);
@@ -104,6 +112,10 @@ describe('node aws lambda module', function() {
         var newConfig = extend({}, sampleConfig);
         newConfig.timeout = 20;
         newConfig.memorySize = 128;
+        newConfig.vpc = {
+          SecurityGroupIds: ['sg-xxxxxxx3'],
+          SubnetIds: ['subnet-xxxxxxx1','subnet-xxxxxxx2']
+        }
         newConfig.eventSource = {
           EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
           BatchSize: 50,
@@ -125,7 +137,11 @@ describe('node aws lambda module', function() {
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
           MemorySize: 128,
-          Runtime: "nodejs"
+          Runtime: "nodejs",
+          VpcConfig: {
+            SecurityGroupIds: ['sg-xxxxxxx3'],
+            SubnetIds: ['subnet-xxxxxxx1', 'subnet-xxxxxxx2']
+          }
         });
 
         expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV2).toString());
