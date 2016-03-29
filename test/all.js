@@ -49,6 +49,7 @@ describe('node aws lambda module', function() {
     description: 'helloworld description',
     timeout: 10,
     memorySize: 128,
+    publish: true,
     runtime: "python2.7",
     eventSource: {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
@@ -66,7 +67,7 @@ describe('node aws lambda module', function() {
     service = new FakeLambdaService();
   });
 
-  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done){
+  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done) {
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -114,7 +115,7 @@ describe('node aws lambda module', function() {
         var newConfig = extend({}, sampleConfig);
         newConfig.timeout = 20;
         newConfig.memorySize = 128;
-        newConfig.publish = true;
+        newConfig.publish = false;
         newConfig.vpc = {
           SecurityGroupIds: ['sg-xxxxxxx3'],
           SubnetIds: ['subnet-xxxxxxx1','subnet-xxxxxxx2']
@@ -140,7 +141,7 @@ describe('node aws lambda module', function() {
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
           MemorySize: 128,
-          Publish: true,
+          Publish: false,
           Runtime: "nodejs",
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx3'],
@@ -179,6 +180,7 @@ describe('node aws lambda module', function() {
           Timeout: 10,
           Runtime: "python2.7",
           MemorySize: 128,
+          Publish: true,
         });
         callback()
       }

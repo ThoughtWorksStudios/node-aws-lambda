@@ -26,9 +26,9 @@ module.exports = function() {
     return {statusCode: 404};
   }
 
-  function validateParams(params, manditoryFields, optionalFields, apiName) {
-    var allFields = manditoryFields.concat(optionalFields);
-    var mandis = manditoryFields.slice();
+  function validateParams(params, mandatoryFields, optionalFields, apiName) {
+    var allFields = mandatoryFields.concat(optionalFields);
+    var mandis = mandatoryFields.slice();
     Object.keys(params).forEach(function(key) {
       if(allFields.indexOf(key) === -1) {
         throw "Param key '" + key +  "' is not allowed for the given API " + apiName;
@@ -136,8 +136,8 @@ module.exports = function() {
     // http://docs.aws.amazon.com/lambda/latest/dg/API_UpdateFunctionCode.html
     updateFunctionCode: function(params, callback) {
       validateParams(params,
-                     ['FunctionName', 'ZipFile'],
-                     [], 'updateFunctionCode');
+                     ['FunctionName'],
+                     ['Publish', 'ZipFile'], 'updateFunctionCode');
 
       var fun = getFun(params.FunctionName);
       if(!fun) {
@@ -145,6 +145,7 @@ module.exports = function() {
         return;
       }
 
+      fun.config.Publish = params.Publish;
       fun.code.ZipFile = params.ZipFile;
       callback();
     },
@@ -153,7 +154,7 @@ module.exports = function() {
     updateFunctionConfiguration: function(params, callback) {
       validateParams(params,
                      ['FunctionName'],
-                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout', 'Publish', 'VpcConfig'],
+                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout', 'VpcConfig'],
                      'updateFunctionConfiguration')
 
       var fun = getFun(params.FunctionName);

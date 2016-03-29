@@ -35,9 +35,9 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     Handler: config.handler,
     Role: config.role,
     Timeout: config.timeout,
-    MemorySize: config.memorySize
+    MemorySize: config.memorySize,
+    Publish: (config.publish === true)
   };
-  if (config.publish) params.Publish = config.publish;
   if (config.vpc) params.VpcConfig = config.vpc;
 
   var updateEventSource = function(eventSource, callback) {
@@ -106,13 +106,14 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
         return callback('Error reading specified package "'+ codePackage + '"');
       }
 
-      lambda.updateFunctionCode({FunctionName: params.FunctionName, ZipFile: data}, function(err, data) {
+      lambda.updateFunctionCode({FunctionName: params.FunctionName, ZipFile: data, Publish: params.Publish}, function(err, data) {
         if (err) {
           var warning = 'Package upload failed. '
           warning += 'Check your iam:PassRole permissions.'
           logger(warning);
           callback(err)
         } else {
+          delete(params.Publish);
           lambda.updateFunctionConfiguration(params, function(err, data) {
             if (err) {
               var warning = 'Update function configuration failed. '
