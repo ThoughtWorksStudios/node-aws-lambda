@@ -37,6 +37,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     Timeout: config.timeout,
     MemorySize: config.memorySize
   };
+  if (config.publish) params.Publish = config.publish;
   if (config.vpc) params.VpcConfig = config.vpc;
 
   var updateEventSource = function(eventSource, callback) {
