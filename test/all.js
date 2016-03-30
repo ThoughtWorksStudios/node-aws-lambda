@@ -50,7 +50,6 @@ describe('node aws lambda module', function() {
     timeout: 10,
     memorySize: 128,
     runtime: "python2.7",
-    publish: true,
     eventSource: {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
       BatchSize: 200,
@@ -180,7 +179,7 @@ describe('node aws lambda module', function() {
           Timeout: 10,
           Runtime: "python2.7",
           MemorySize: 128,
-          Publish: true
+          Publish: false
         });
         callback()
       }
