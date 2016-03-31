@@ -1,3 +1,9 @@
+0.1.8
+=====
+* Support VPC (by @tilfin)
+* Support authentication with sessionToken (by @JohnBloom)
+* Support Publish flag (by @hiro-koba)
+
 0.1.7
 =====
 * Support python and other runtime (by @kikusu)
