@@ -25,7 +25,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     lambda = new AWS.Lambda({
       region: config.region,
       accessKeyId: "accessKeyId" in config ? config.accessKeyId : "",
-      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey : ""
+      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey : "",
+      sessionToken: "sessionToken" in config ? config.sessionToken : ""
     });
   }
 
