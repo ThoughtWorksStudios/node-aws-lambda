@@ -27,6 +27,7 @@ describe('node aws lambda module', function() {
     description: 'helloworld description',
     timeout: 10,
     memorySize: 128,
+    publish: true,
     vpc: {
       SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
       SubnetIds: ['subnet-xxxxxxxx']
@@ -65,7 +66,7 @@ describe('node aws lambda module', function() {
     service = new FakeLambdaService();
   });
 
-  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done){
+  it('should create the function with code, configuration and event source mapping on fresh deployment', function(done) {
     async.waterfall([
       function(callback) {
         deploy(packageV1, sampleConfig, callback);
@@ -83,6 +84,7 @@ describe('node aws lambda module', function() {
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 10,
           MemorySize: 128,
+          Publish: true,
           Runtime: "nodejs",
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
@@ -112,6 +114,7 @@ describe('node aws lambda module', function() {
         var newConfig = extend({}, sampleConfig);
         newConfig.timeout = 20;
         newConfig.memorySize = 128;
+        newConfig.publish = false;
         newConfig.vpc = {
           SecurityGroupIds: ['sg-xxxxxxx3'],
           SubnetIds: ['subnet-xxxxxxx1','subnet-xxxxxxx2']
@@ -137,6 +140,7 @@ describe('node aws lambda module', function() {
           Role: 'arn:aws:iam:xxxxxx:rol/lambda-exec-role',
           Timeout: 20,
           MemorySize: 128,
+          Publish: false,
           Runtime: "nodejs",
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx3'],
@@ -175,6 +179,7 @@ describe('node aws lambda module', function() {
           Timeout: 10,
           Runtime: "python2.7",
           MemorySize: 128,
+          Publish: false
         });
         callback()
       }

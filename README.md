@@ -65,6 +65,7 @@ module.exports = {
   functionName: <function name>,
   timeout: 10,
   memorySize: 128,
+  publish: true, // default: false,
   runtime: 'nodejs', // default: 'nodejs',
   vpc: { // optional
     SecurityGroupIds: [<security group id>, ...],

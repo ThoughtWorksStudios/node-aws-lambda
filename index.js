@@ -38,6 +38,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     MemorySize: config.memorySize
   };
   if (config.vpc) params.VpcConfig = config.vpc;
+  var isPublish = (config.publish === true);
 
   var updateEventSource = function(eventSource, callback) {
     var params = extend({
@@ -105,7 +106,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
         return callback('Error reading specified package "'+ codePackage + '"');
       }
 
-      lambda.updateFunctionCode({FunctionName: params.FunctionName, ZipFile: data}, function(err, data) {
+      lambda.updateFunctionCode({FunctionName: params.FunctionName, ZipFile: data, Publish: isPublish}, function(err, data) {
         if (err) {
           var warning = 'Package upload failed. '
           warning += 'Check your iam:PassRole permissions.'
@@ -134,6 +135,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
 
       params['Code'] = { ZipFile: data };
       params['Runtime'] = "runtime" in config ? config.runtime : "nodejs";
+      params['Publish'] = isPublish;
       lambda.createFunction(params, function(err, data) {
         if (err) {
           var warning = 'Create function failed. '
