@@ -3,6 +3,9 @@ var AWS = require('aws-sdk');
 var extend = require('util')._extend;
 var async = require('async');
 
+var sns,
+    lambdaArn;
+
 exports.deploy = function(codePackage, config, callback, logger, lambda) {
   if (!logger) {
     logger = console.log;
@@ -24,9 +27,15 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
 
     lambda = new AWS.Lambda({
       region: config.region,
-      accessKeyId: "accessKeyId" in config ? config.accessKeyId : "",
-      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey : "",
+      accessKeyId: "accessKeyId" in config ? config.accessKeyId : undefined,
+      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey :undefined,
       sessionToken: "sessionToken" in config ? config.sessionToken : ""
+    });
+
+    sns = new AWS.SNS({
+      region: config.region,
+      accessKeyId: "accessKeyId" in config ? config.accessKeyId : undefined,
+      secretAccessKey: "secretAccessKey" in config ? config.secretAccessKey :undefined
     });
   }
 
@@ -46,11 +55,25 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
       FunctionName: config.functionName
     }, eventSource);
 
+    if (eventSource.sourceType === 'sns') {
+
+      var snsSubscribeParams = {
+        Protocol: 'lambda',
+        TopicArn: eventSource.arn,
+        Endpoint: lambdaArn,
+      };
+
+      sns.subscribe(snsSubscribeParams, callback);
+
+      return;
+    }
+
     lambda.listEventSourceMappings({
       FunctionName: params.FunctionName,
       EventSourceArn: params.EventSourceArn
     }, function(err, data) {
       if(err) {
+        console.log(err);
         logger("List event source mapping failed, please make sure you have permission");
         callback(err);
       } else {
@@ -101,6 +124,24 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     );
   };
 
+  var updatePushPermission = function (updatedCallback) {
+      var permissions;
+
+      async.eachSeries(config.permissions, function (permission, callback) {
+
+        var addPermissionParams = {
+          Action: permission.action,
+          FunctionName: config.functionName,
+          Principal: permission.principal,
+          StatementId: permission.statement_id,
+          SourceArn: permission.source_arn,
+        };
+
+        lambda.addPermission(addPermissionParams, callback);
+
+      }, updatedCallback);
+  };
+
   var updateFunction = function(callback) {
     fs.readFile(codePackage, function(err, data) {
       if(err) {
@@ -120,6 +161,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
               logger(warning);
               callback(err);
             } else {
+              lambdaArn = data.FunctionArn;
               updateEventSources(callback);
             }
           });
@@ -144,7 +186,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
           logger(warning);
           callback(err)
         } else {
-          updateEventSources(callback);
+          lambdaArn = data.FunctionArn;
+          async.series([updateEventSources, updatePushPermission], callback);
         }
       });
     });
