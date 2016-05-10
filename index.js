@@ -36,7 +36,8 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
     Handler: config.handler,
     Role: config.role,
     Timeout: config.timeout,
-    MemorySize: config.memorySize
+    MemorySize: config.memorySize,
+    Runtime: config.runtime
   };
   if (config.vpc) params.VpcConfig = config.vpc;
   var isPublish = (config.publish === true);
