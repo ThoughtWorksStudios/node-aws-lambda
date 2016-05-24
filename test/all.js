@@ -85,7 +85,7 @@ describe('node aws lambda module', function() {
           Timeout: 10,
           MemorySize: 128,
           Publish: true,
-          Runtime: "nodejs",
+          Runtime: "nodejs4.3",
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
             SubnetIds: ['subnet-xxxxxxxx']
@@ -141,7 +141,7 @@ describe('node aws lambda module', function() {
           Timeout: 20,
           MemorySize: 128,
           Publish: false,
-          Runtime: "nodejs",
+          Runtime: "nodejs4.3",
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx3'],
             SubnetIds: ['subnet-xxxxxxx1', 'subnet-xxxxxxx2']
