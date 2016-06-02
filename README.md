@@ -67,7 +67,7 @@ module.exports = {
   timeout: 10,
   memorySize: 128,
   publish: true, // default: false,
-  runtime: 'nodejs', // default: 'nodejs',
+  runtime: 'nodejs4.3', // default: 'nodejs4.3',
   vpc: { // optional
     SecurityGroupIds: [<security group id>, ...],
     SubnetIds: [<subnet id>, ...]

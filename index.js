@@ -135,7 +135,7 @@ exports.deploy = function(codePackage, config, callback, logger, lambda) {
       }
 
       params['Code'] = { ZipFile: data };
-      params['Runtime'] = "runtime" in config ? config.runtime : "nodejs";
+      params['Runtime'] = "runtime" in config ? config.runtime : "nodejs4.3";
       params['Publish'] = isPublish;
       lambda.createFunction(params, function(err, data) {
         if (err) {
