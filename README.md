@@ -76,6 +76,11 @@ module.exports = {
     EventSourceArn: <event source such as kinesis ARN>,
     BatchSize: 200,
     StartingPosition: "TRIM_HORIZON"
+  },
+  environment: { // optional
+    Variables: {
+      someKey: 'STRING_VALUE'
+    }
   }
 }
 ````
