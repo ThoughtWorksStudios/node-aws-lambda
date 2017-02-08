@@ -68,6 +68,9 @@ module.exports = {
   memorySize: 128,
   publish: true, // default: false,
   runtime: 'nodejs4.3', // default: 'nodejs4.3',
+  env: {, // optionl
+    [<Environment key/values>]
+  },
   vpc: { // optional
     SecurityGroupIds: [<security group id>, ...],
     SubnetIds: [<subnet id>, ...]

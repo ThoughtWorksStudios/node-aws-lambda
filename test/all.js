@@ -28,6 +28,9 @@ describe('node aws lambda module', function() {
     timeout: 10,
     memorySize: 128,
     publish: true,
+    env: {
+      MyEvnVar: 'helloworld var',
+    },
     vpc: {
       SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
       SubnetIds: ['subnet-xxxxxxxx']
@@ -86,6 +89,11 @@ describe('node aws lambda module', function() {
           MemorySize: 128,
           Publish: true,
           Runtime: "nodejs4.3",
+          Environment: {
+            Variables : {
+              MyEvnVar: 'helloworld var'
+            }
+          },
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
             SubnetIds: ['subnet-xxxxxxxx']
@@ -142,6 +150,11 @@ describe('node aws lambda module', function() {
           MemorySize: 128,
           Publish: false,
           Runtime: "nodejs4.3",
+          Environment: {
+            Variables: {
+              MyEvnVar: 'helloworld var',
+            },
+          },
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx3'],
             SubnetIds: ['subnet-xxxxxxx1', 'subnet-xxxxxxx2']
