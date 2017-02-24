@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "async": "^1.0.0",
-    "aws-sdk": "2.x.x",
+    "aws-sdk": "^2.7.27",
     "https-proxy-agent": "^1.0.0"
   },
   "devDependencies": {

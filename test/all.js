@@ -36,6 +36,11 @@ describe('node aws lambda module', function() {
       EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
       BatchSize: 200,
       StartingPosition: "TRIM_HORIZON"
+    },
+    environment: {
+      Variables: {
+        SOME_KEY: 'SOME_VALUE'
+      }
     }
   };
 
@@ -89,6 +94,11 @@ describe('node aws lambda module', function() {
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
             SubnetIds: ['subnet-xxxxxxxx']
+          },
+          Environment: {
+            Variables: {
+              SOME_KEY: 'SOME_VALUE'
+            }
           }
         });
         expect(data.Code.Content.toString()).to.equal(fs.readFileSync(packageV1).toString());
@@ -118,12 +128,18 @@ describe('node aws lambda module', function() {
         newConfig.vpc = {
           SecurityGroupIds: ['sg-xxxxxxx3'],
           SubnetIds: ['subnet-xxxxxxx1','subnet-xxxxxxx2']
-        }
+        };
         newConfig.eventSource = {
           EventSourceArn: "arn:aws:kinesis:us-east-1:xxx:stream/KinesisStream-x0",
           BatchSize: 50,
           StartingPosition: "LATEST"
         };
+        newConfig.environment = {
+          Variables: {
+            SOME_KEY: 'SOME_CHANGED_VALUE',
+            SOME_NEW_KEY: 'SOME_NEW_VALUE'
+          }
+        }
 
         deploy(packageV2, newConfig, callback);
       },
@@ -145,6 +161,12 @@ describe('node aws lambda module', function() {
           VpcConfig: {
             SecurityGroupIds: ['sg-xxxxxxx3'],
             SubnetIds: ['subnet-xxxxxxx1', 'subnet-xxxxxxx2']
+          },
+          Environment: {
+            Variables: {
+              SOME_KEY: 'SOME_CHANGED_VALUE',
+              SOME_NEW_KEY: 'SOME_NEW_VALUE'
+            }
           }
         });
 
