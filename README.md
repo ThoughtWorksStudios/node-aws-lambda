@@ -59,7 +59,7 @@ module.exports = {
   accessKeyId: <access key id>,  // optional
   secretAccessKey: <secret access key>,  // optional
   sessionToken: <sessionToken for assuming roles>,  // optional
-  profile: <shared credentials profile name>, // optional for loading AWS credientail from custom profile
+  profile: <shared credentials profile name>, // optional for loading AWS credential from custom profile
   region: 'us-east-1',
   handler: 'index.handler',
   role: <role arn>,
