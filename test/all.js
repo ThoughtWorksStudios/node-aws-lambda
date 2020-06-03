@@ -28,6 +28,7 @@ describe('node aws lambda module', function() {
     timeout: 10,
     memorySize: 128,
     publish: true,
+    runtime: 'nodejs',
     vpc: {
       SecurityGroupIds: ['sg-xxxxxxx1', 'sg-xxxxxxx2'],
       SubnetIds: ['subnet-xxxxxxxx']

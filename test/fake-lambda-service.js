@@ -154,7 +154,7 @@ module.exports = function() {
     updateFunctionConfiguration: function(params, callback) {
       validateParams(params,
                      ['FunctionName'],
-                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout', 'VpcConfig'],
+                     ['Description', 'Handler', 'MemorySize', 'Role', 'Timeout', 'VpcConfig', 'Runtime'],
                      'updateFunctionConfiguration')
 
       var fun = getFun(params.FunctionName);
